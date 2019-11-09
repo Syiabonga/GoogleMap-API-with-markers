@@ -47,18 +47,20 @@
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
       }
-      <% @locations.each do |location| %>
-        var locations = [
-        {lat: <%= location.latitude %>,lng: <%= location.longitude %>}];
-      <% end %>
+      <% count = @locations.count %>
+      var locations = [
+        <% @locations.each_with_index do |loc, idx| %>
+        {lat:<%= loc.latitude %>, lng:<%= loc.longitude %>}<% unless idx + 1 == count %>,<% end %>
+        <% end %>
+        ]
+
+
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzKJBf6msggLTo5p50u8yj95b8mwdd3Sg&callback=initMap">
     </script>
-    <p id="notice"><%= notice %></p>
-
     <h1>Locations</h1>
     <table>
       <thead>
